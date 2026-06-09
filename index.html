@@ -173,8 +173,8 @@ onValue(ref(db, "checkins"), snap => {
     snap.forEach(child => allEntries.push({ _key: child.key, ...child.val() }));
   }
   dbLoaded = true;
-  render();
-});
+  if (view === "dashboard") render();
+}, { onlyOnce: false });
 
 // ── helpers ──────────────────────────────────────────────────
 function initials(name) {
