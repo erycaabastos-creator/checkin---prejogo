@@ -219,6 +219,7 @@ function htmlDash(){
       </div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="btn-s" id="btn-long">📈 Evolução</button>
+        <button class="btn-s" id="btn-report">📄 Relatório</button>
         <button class="btn-s" id="btn-export">⬇ Excel</button>
         <button class="btn-danger" id="btn-clear">Limpar</button>
       </div>
@@ -332,6 +333,85 @@ function drawChart(){
   });
 }
 
+function gerarRelatorio(catFiltro){
+  const fil = catFiltro==="Todas" ? entries : entries.filter(d=>d.cat===catFiltro);
+  if(!fil.length){ alert("Nenhuma resposta para gerar o relatório."); return; }
+
+  const hoje = new Date().toLocaleDateString("pt-BR");
+  const alerts = fil.filter(d=>d.q2<=2||d.q3<=2);
+  const avgQ=(k)=>fil.length?(fil.reduce((s,d)=>s+d[k],0)/fil.length).toFixed(1):"—";
+
+  const dimColor=(v)=>v<=2?"#c0392b":v==3?"#C0A258":"#27ae60";
+  const dimBar=(v)=>`<div style="display:inline-block;width:${v/5*100}%;height:8px;background:${dimColor(v)};border-radius:4px;vertical-align:middle"></div>`;
+
+  const atletasRows = fil.map(d=>`
+    <tr>
+      <td>${d.name}</td>
+      <td style="text-align:center;color:${dimColor(d.q1)};font-weight:600">${d.q1}</td>
+      <td style="text-align:center;color:${dimColor(d.q2)};font-weight:600">${d.q2}</td>
+      <td style="text-align:center;color:${dimColor(d.q3)};font-weight:600">${d.q3}</td>
+      <td style="text-align:center;color:${dimColor(d.q4)};font-weight:600">${d.q4}</td>
+      <td style="color:#666;font-size:12px">${d.obs||"—"}</td>
+    </tr>`).join("");
+
+  const alertRows = alerts.length ? alerts.map(a=>`
+    <tr>
+      <td>${a.name} (${a.cat})</td>
+      <td>Emocional: ${a.q2} · Foco: ${a.q3}</td>
+      <td style="color:#666;font-size:12px">${a.obs||"—"}</td>
+    </tr>`).join("") : `<tr><td colspan="3" style="color:#27ae60">Nenhum atleta em situação de alerta.</td></tr>`;
+
+  const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
+  <title>Relatório Pré-Jogo — ${catFiltro}</title>
+  <style>
+    body{font-family:Arial,sans-serif;max-width:720px;margin:0 auto;padding:2rem;color:#222}
+    h1{color:#304E38;font-size:22px;margin-bottom:4px}
+    h2{color:#304E38;font-size:15px;margin:1.5rem 0 .5rem;border-bottom:2px solid #304E38;padding-bottom:4px}
+    .meta{font-size:12px;color:#888;margin-bottom:1.5rem}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+    .box{background:#F8F4EC;border:1px solid #EEE8DA;border-radius:8px;padding:.75rem;text-align:center}
+    .box .label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.8px}
+    .box .val{font-size:24px;font-weight:700;color:#304E38;margin-top:4px}
+    table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:1.5rem}
+    th{background:#304E38;color:#F8F4EC;padding:8px 10px;text-align:left;font-size:12px}
+    td{padding:7px 10px;border-bottom:1px solid #EEE8DA}
+    tr:last-child td{border-bottom:none}
+    .alerta-box{background:#fff5f5;border:1px solid #fcc;border-radius:8px;padding:.75rem 1rem;margin-bottom:1.5rem;font-size:13px;color:#c0392b}
+    .footer{margin-top:2rem;font-size:11px;color:#aaa;text-align:center;border-top:1px solid #EEE8DA;padding-top:1rem}
+    @media print{body{padding:1rem}.footer{position:fixed;bottom:0}}
+  </style></head><body>
+
+  <h1>Relatório Pré-Jogo</h1>
+  <p class="meta">Categoria: <strong>${catFiltro}</strong> &nbsp;·&nbsp; Data: <strong>${hoje}</strong> &nbsp;·&nbsp; Respostas: <strong>${fil.length}</strong></p>
+
+  <h2>Médias do Grupo</h2>
+  <div class="grid">
+    <div class="box"><p class="label">Preparo</p><p class="val" style="color:${dimColor(parseFloat(avgQ("q1")))}">${avgQ("q1")}</p></div>
+    <div class="box"><p class="label">Emocional</p><p class="val" style="color:${dimColor(parseFloat(avgQ("q2")))}">${avgQ("q2")}</p></div>
+    <div class="box"><p class="label">Foco</p><p class="val" style="color:${dimColor(parseFloat(avgQ("q3")))}">${avgQ("q3")}</p></div>
+    <div class="box"><p class="label">Confiança</p><p class="val" style="color:${dimColor(parseFloat(avgQ("q4")))}">${avgQ("q4")}</p></div>
+  </div>
+
+  <h2>⚠ Atletas em Atenção</h2>
+  ${alerts.length?`<table><thead><tr><th>Atleta</th><th>Indicadores</th><th>Observação</th></tr></thead><tbody>${alertRows}</tbody></table>`
+  :`<p style="color:#27ae60;font-size:13px;margin-bottom:1.5rem">✓ Nenhum atleta em situação de alerta.</p>`}
+
+  <h2>Lista Completa dos Atletas</h2>
+  <table>
+    <thead><tr><th>Nome</th><th style="text-align:center">Preparo</th><th style="text-align:center">Emocional</th><th style="text-align:center">Foco</th><th style="text-align:center">Confiança</th><th>Observação</th></tr></thead>
+    <tbody>${atletasRows}</tbody>
+  </table>
+
+  <div class="footer">Relatório gerado por Check-in Pré-Jogo · Psicologia do Esporte · ${hoje}</div>
+
+  <script>window.onload=()=>window.print()<\/script>
+  </body></html>`;
+
+  const w = window.open("","_blank");
+  w.document.write(html);
+  w.document.close();
+}
+
 function exportCSV(data, nome){
   const rows=[["Nome","Categoria","Data","Hora","Preparo","Emocional","Foco","Confiança","Observação"]];
   data.forEach(d=>rows.push([d.name,d.cat,d.date,d.time,d.q1,d.q2,d.q3,d.q4,d.obs||""]));
@@ -370,6 +450,7 @@ function bind(){
   document.getElementById("btn-clear")?.addEventListener("click",async()=>{
     if(confirm("Apagar todas as respostas? Esta ação não pode ser desfeita.")) await remove(ref(db,"checkins"));
   });
+  document.getElementById("btn-report")?.addEventListener("click",()=>gerarRelatorio(cf));
   document.getElementById("btn-long")?.addEventListener("click",()=>{ selAtleta=""; view="long"; render(); });
   document.getElementById("btn-export")?.addEventListener("click",()=>exportCSV(entries,"todos"));
   document.getElementById("sel-atleta")?.addEventListener("change",e=>{ selAtleta=e.target.value; render(); });
