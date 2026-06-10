@@ -85,6 +85,14 @@ input[type=password]{width:100%;padding:10px 12px;border-radius:8px;border:1px s
 .senha-box h2{color:var(--vd);font-size:20px;font-weight:500;margin-bottom:6px}
 .senha-box p{color:#999;font-size:13px;margin-bottom:1.5rem}
 .senha-box input{margin-bottom:12px}
+
+/* longitudinal */
+.sel-atleta{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--cr2);font-size:15px;background:var(--cr);font-family:inherit;margin-bottom:1rem;color:var(--vd)}
+.chart-wrap{background:#fff;border:1px solid var(--cr2);border-radius:10px;padding:1rem;margin-bottom:1rem;overflow-x:auto}
+canvas{max-width:100%}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1rem}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:#555}
+.legend-dot{width:10px;height:10px;border-radius:50%}
 </style>
 </head>
 <body>
@@ -138,7 +146,8 @@ const OBS = {
 };
 
 // estado
-let view = "home"; // home | form | ok | dash | senha
+let view = "home"; // home | form | ok | dash | senha | long
+let selAtleta = "";
 let cat = null;
 let sc = {q1:0,q2:0,q3:0,q4:0};
 let nm = "", obs = "", ferr = "", okName = "";
@@ -170,6 +179,7 @@ function html(){
   if(view==="form")  return htmlForm();
   if(view==="ok")    return htmlOk();
   if(view==="dash")  return htmlDash();
+  if(view==="long")  return htmlLong();
 }
 
 function htmlSenha(){
@@ -251,7 +261,11 @@ function htmlDash(){
         <p style="font-size:11px;color:var(--sg);font-weight:500;letter-spacing:1px;text-transform:uppercase;margin:0">Painel</p>
         <p style="font-size:20px;font-weight:500;color:var(--vd);margin:0">Check-in Pré-Jogo</p>
       </div>
-      <button class="btn-danger" id="btn-clear">Limpar dados</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn-s" id="btn-long">📈 Evolução</button>
+        <button class="btn-s" id="btn-export">⬇ Excel</button>
+        <button class="btn-danger" id="btn-clear">Limpar</button>
+      </div>
     </div>
 
     <div class="frow">
@@ -303,7 +317,133 @@ function htmlDash(){
   </div>`;
 }
 
-function bind(){
+function htmlLong(){
+  const nomes = [...new Set(entries.map(e=>e.name))].sort();
+  const atletaEntries = selAtleta ? entries.filter(e=>e.name===selAtleta).sort((a,b)=>{
+    const p=s=>s.split("/").reverse().join("-");
+    return p(a.date).localeCompare(p(b.date)) || a.time.localeCompare(b.time);
+  }) : [];
+
+  return `
+  <button class="back" id="btn-back">← Voltar</button>
+  <div class="screen">
+    <div class="dh">
+      <div>
+        <p style="font-size:11px;color:var(--sg);font-weight:500;letter-spacing:1px;text-transform:uppercase;margin:0">Evolução por Atleta</p>
+        <p style="font-size:20px;font-weight:500;color:var(--vd);margin:0">Análise Longitudinal</p>
+      </div>
+    </div>
+
+    <select class="sel-atleta" id="sel-atleta">
+      <option value="">Selecione um atleta...</option>
+      ${nomes.map(n=>`<option value="${n}" ${selAtleta===n?"selected":""}>${n}</option>`).join("")}
+    </select>
+
+    ${selAtleta && atletaEntries.length === 0 ? `<div class="empty">Nenhuma resposta encontrada para este atleta.</div>` : ""}
+
+    ${selAtleta && atletaEntries.length > 0 ? `
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#304E38"></div>Preparo</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#C0A258"></div>Emocional</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#8CA591"></div>Foco</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#c0392b"></div>Confiança</div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="myChart" height="220"></canvas>
+      </div>
+      <button class="btn-p" id="btn-export-atleta" style="margin-bottom:1rem">⬇ Exportar dados de ${selAtleta}</button>
+
+      <p style="font-size:12px;font-weight:500;color:var(--sg);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Histórico</p>
+      ${atletaEntries.map((d,i)=>`
+        <div class="acard" style="cursor:default">
+          <div class="arow">
+            <div>
+              <p class="aname">Jogo ${i+1} — ${d.date}</p>
+              <p class="asub">${d.cat} · ${d.time}</p>
+            </div>
+            <div class="pills">
+              <span class="${pc(d.q1)}">${d.q1}</span>
+              <span class="${pc(d.q2)}">${d.q2}</span>
+              <span class="${pc(d.q3)}">${d.q3}</span>
+              <span class="${pc(d.q4)}">${d.q4}</span>
+            </div>
+          </div>
+          ${d.obs?`<div class="obsbox" style="margin-top:8px">💬 ${d.obs}</div>`:""}
+        </div>`).join("")}
+    ` : ""}
+  </div>`;
+}
+
+function drawChart(data){
+  const canvas = document.getElementById("myChart");
+  if(!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const labels = data.map((_,i)=>`Jogo ${i+1}`);
+  const W = canvas.parentElement.clientWidth - 32;
+  canvas.width = W; canvas.height = 220;
+  ctx.clearRect(0,0,W,220);
+
+  const pad={t:20,r:20,b:40,l:30};
+  const cW=W-pad.l-pad.r, cH=220-pad.t-pad.b;
+
+  // grade
+  ctx.strokeStyle="#EEE8DA"; ctx.lineWidth=1;
+  for(let i=1;i<=5;i++){
+    const y=pad.t+cH-(i-1)/4*cH;
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+cW,y); ctx.stroke();
+    ctx.fillStyle="#999"; ctx.font="10px sans-serif"; ctx.fillText(i,4,y+4);
+  }
+
+  // eixo x
+  const step = data.length>1?cW/(data.length-1):cW;
+  data.forEach((_,i)=>{
+    const x=pad.l+(data.length>1?i*step:cW/2);
+    ctx.fillStyle="#999"; ctx.font="10px sans-serif";
+    ctx.fillText(`J${i+1}`,x-6,220-8);
+  });
+
+  // linhas
+  const series=[
+    {key:"q1",color:"#304E38"},
+    {key:"q2",color:"#C0A258"},
+    {key:"q3",color:"#8CA591"},
+    {key:"q4",color:"#c0392b"},
+  ];
+  series.forEach(s=>{
+    ctx.beginPath(); ctx.strokeStyle=s.color; ctx.lineWidth=2;
+    data.forEach((d,i)=>{
+      const x=pad.l+(data.length>1?i*step:cW/2);
+      const y=pad.t+cH-(d[s.key]-1)/4*cH;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+    data.forEach((d,i)=>{
+      const x=pad.l+(data.length>1?i*step:cW/2);
+      const y=pad.t+cH-(d[s.key]-1)/4*cH;
+      ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2);
+      ctx.fillStyle=s.color; ctx.fill();
+    });
+  });
+}
+
+function exportExcel(data, nome){
+  const rows = [["Nome","Categoria","Data","Hora","Preparo","Emocional","Foco","Confiança","Observação"]];
+  data.forEach(d=>rows.push([d.name,d.cat,d.date,d.time,d.q1,d.q2,d.q3,d.q4,d.obs||""]));
+  const csv = rows.map(r=>r.map(v=>`"${v}"`).join(",")).join("\n");
+  const blob = new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href=url; a.download=`checkin_${(nome||"todos").replace(/ /g,"_")}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function htmlLong_afterRender(){
+  const atletaEntries = selAtleta ? entries.filter(e=>e.name===selAtleta).sort((a,b)=>{
+    const p=s=>s.split("/").reverse().join("-");
+    return p(a.date).localeCompare(p(b.date)) || a.time.localeCompare(b.time);
+  }) : [];
+  if(selAtleta && atletaEntries.length>0) drawChart(atletaEntries);
+}
   // home
   document.querySelectorAll(".cat-btn[data-cat]").forEach(b=>b.addEventListener("click",()=>{
     cat=b.dataset.cat; sc={q1:0,q2:0,q3:0,q4:0}; nm=""; obs=""; ferr=""; view="form"; render();
