@@ -8,20 +8,15 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#F8F4EC;min-height:100vh}
 :root{--cr:#F8F4EC;--cr2:#EEE8DA;--vd:#304E38;--sg:#8CA591;--do:#C0A258}
-
 .screen{max-width:480px;margin:0 auto;padding:1.5rem 1rem}
 .header{background:var(--vd);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.5rem}
 .header .sub{color:var(--do);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
 .header h1{color:var(--cr);font-size:22px;font-weight:500;margin-top:4px}
-
 .cat-btn{width:100%;padding:16px;background:#fff;border:1px solid var(--cr2);border-radius:12px;font-size:16px;font-weight:500;color:var(--vd);cursor:pointer;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.cat-btn:active{background:var(--cr2)}
-
 label.fl{font-size:13px;color:#666;display:block;margin-bottom:6px}
-input[type=text],textarea{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--cr2);font-size:15px;background:var(--cr);font-family:inherit}
+input[type=text],input[type=password],textarea,select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--cr2);font-size:15px;background:var(--cr);font-family:inherit;color:var(--vd)}
 textarea{resize:none}
-input[type=password]{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--cr2);font-size:15px;background:var(--cr);font-family:inherit}
-
+select{margin-bottom:1rem}
 .qcard{background:var(--cr);border:1px solid var(--cr2);border-radius:10px;padding:1rem 1.25rem;margin-bottom:12px}
 .qtext{font-size:14px;font-weight:500;color:var(--vd);margin-bottom:12px}
 .srow{display:flex;gap:8px}
@@ -30,25 +25,20 @@ input[type=password]{width:100%;padding:10px 12px;border-radius:8px;border:1px s
 .slabs{display:flex;justify-content:space-between;margin-top:6px}
 .slabs span{font-size:10px;color:#999;max-width:45%;line-height:1.3}
 .slabs span:last-child{text-align:right}
-
 .btn-p{width:100%;padding:14px;background:var(--vd);color:var(--cr);border:none;border-radius:10px;font-size:16px;font-weight:500;cursor:pointer;margin-top:4px}
 .btn-s{padding:7px 14px;border-radius:8px;border:1px solid var(--cr2);background:var(--cr);color:var(--vd);font-size:13px;cursor:pointer}
 .btn-danger{padding:7px 14px;border-radius:8px;border:1px solid #fcc;background:#fff5f5;color:#c0392b;font-size:13px;cursor:pointer}
-
 .ok-screen{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:2rem;text-align:center}
 .ok-circle{width:56px;height:56px;border-radius:50%;background:var(--vd);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--cr)}
-
 .mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:1.25rem}
 .mcard{background:var(--cr);border:1px solid var(--cr2);border-radius:10px;padding:.75rem 1rem}
 .mcard.alerta{background:#fff5f5;border-color:#fcc}
 .mcard .ml{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
 .mcard .mv{font-size:22px;font-weight:500;color:var(--vd)}
 .mcard.alerta .mv{color:#c0392b}
-
 .abox{background:#fff5f5;border:1px solid #fcc;border-radius:10px;padding:.75rem 1.25rem;margin-bottom:1.25rem}
 .abox .at{font-size:13px;font-weight:500;color:#c0392b;margin-bottom:6px}
 .abox p{font-size:13px;color:#c0392b;margin:2px 0}
-
 .dlabel{font-size:12px;font-weight:500;color:var(--sg);text-transform:uppercase;letter-spacing:1px;margin:0 0 8px}
 .acard{background:#fff;border:1px solid var(--cr2);border-radius:10px;padding:.75rem 1.25rem;margin-bottom:8px;cursor:pointer}
 .arow{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
@@ -61,7 +51,6 @@ input[type=password]{width:100%;padding:10px 12px;border-radius:8px;border:1px s
 .pok{background:#27ae6022;color:#27ae60}
 .pmid{background:#C0A25822;color:#C0A258}
 .pbad{background:#e74c3c22;color:#e74c3c}
-
 .detail{margin-top:12px;padding-top:12px;border-top:1px solid var(--cr2)}
 .brow{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 .blabel{font-size:12px;color:#999;width:130px;flex-shrink:0}
@@ -69,35 +58,26 @@ input[type=password]{width:100%;padding:10px 12px;border-radius:8px;border:1px s
 .bfill{height:100%;border-radius:3px}
 .bval{font-size:13px;font-weight:500;color:var(--vd);width:16px}
 .obsbox{margin-top:8px;background:var(--cr);border-radius:8px;padding:8px 10px;font-size:12px;color:#666}
-
 .frow{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
 .fbtn{padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid var(--cr2);background:var(--cr);color:var(--vd)}
 .fbtn.on{background:var(--vd);color:var(--cr);border-color:var(--vd);font-weight:500}
-
 .back{background:none;border:none;color:var(--sg);font-size:13px;cursor:pointer;margin:1rem 0 0 1rem;display:block}
 .empty{text-align:center;padding:3rem 0;color:#bbb;font-size:14px;line-height:1.8}
 .err{color:#c0392b;font-size:13px;margin-bottom:8px}
 .loading{text-align:center;padding:2rem;color:#999;font-size:14px}
 .dh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px}
-
-/* senha */
 .senha-box{max-width:360px;margin:4rem auto;padding:2rem 1.5rem;background:#fff;border:1px solid var(--cr2);border-radius:16px;text-align:center}
 .senha-box h2{color:var(--vd);font-size:20px;font-weight:500;margin-bottom:6px}
 .senha-box p{color:#999;font-size:13px;margin-bottom:1.5rem}
 .senha-box input{margin-bottom:12px}
-
-/* longitudinal */
-.sel-atleta{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--cr2);font-size:15px;background:var(--cr);font-family:inherit;margin-bottom:1rem;color:var(--vd)}
-.chart-wrap{background:#fff;border:1px solid var(--cr2);border-radius:10px;padding:1rem;margin-bottom:1rem;overflow-x:auto}
-canvas{max-width:100%}
 .legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1rem}
 .legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:#555}
 .legend-dot{width:10px;height:10px;border-radius:50%}
+.chart-wrap{background:#fff;border:1px solid var(--cr2);border-radius:10px;padding:1rem;margin-bottom:1rem;overflow-x:auto}
 </style>
 </head>
 <body>
 <div id="app"></div>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
@@ -112,7 +92,6 @@ const cfg = {
   appId:"1:850423983845:web:0613938dc4e5fb2973ae0c"
 };
 
-// ⬇️ TROQUE AQUI A SUA SENHA
 const SENHA = "eryca2025";
 
 const fb = initializeApp(cfg);
@@ -138,40 +117,28 @@ const QS = {
     {id:"q4",text:"Minha confiança para executar minhas funções e tomar decisões sob pressão é:",min:"Baixa",max:"Alta"},
   ],
 };
+const OBS={"Sub-15":"Tem algo que está te deixando diferente hoje?","Sub-17":"Tem alguma coisa fora do futebol que pode te afetar hoje?","Sub-20":"Há algum fator que pode impactar sua performance hoje?"};
 
-const OBS = {
-  "Sub-15":"Tem algo que está te deixando diferente hoje?",
-  "Sub-17":"Tem alguma coisa fora do futebol que pode te afetar hoje?",
-  "Sub-20":"Há algum fator que pode impactar sua performance hoje?",
-};
+let view="home", cat=null, sc={q1:0,q2:0,q3:0,q4:0}, nm="", obs="", ferr="", okName="";
+let entries=[], loaded=false, cf="Todas", exp=null, senhaErr="", selAtleta="";
 
-// estado
-let view = "home"; // home | form | ok | dash | senha | long
-let selAtleta = "";
-let cat = null;
-let sc = {q1:0,q2:0,q3:0,q4:0};
-let nm = "", obs = "", ferr = "", okName = "";
-let entries = [];
-let loaded = false;
-let cf = "Todas";
-let exp = null;
-let senhaErr = "";
-
-// firebase listener em tempo real
 onValue(ref(db,"checkins"), snap => {
-  entries = [];
-  if(snap.exists()) snap.forEach(c => { const v=c.val(); if(v&&v.name) entries.push({_k:c.key,...v}); });
-  loaded = true;
+  entries=[];
+  if(snap.exists()) snap.forEach(c=>{ const v=c.val(); if(v&&v.name) entries.push({_k:c.key,...v}); });
+  loaded=true;
   render();
 });
 
-// helpers
-const ini = n => n.trim().split(" ").map(w=>w[0]).filter(Boolean).slice(0,2).join("").toUpperCase();
-const pc = v => v<=2?"pill pbad":v===3?"pill pmid":"pill pok";
-const bc = v => v<=2?"#e74c3c":v===3?"#C0A258":"#304E38";
-const avg = (arr,k) => arr.length?(arr.reduce((s,d)=>s+d[k],0)/arr.length).toFixed(1):"—";
+const ini=n=>n.trim().split(" ").map(w=>w[0]).filter(Boolean).slice(0,2).join("").toUpperCase();
+const pc=v=>v<=2?"pill pbad":v===3?"pill pmid":"pill pok";
+const bc=v=>v<=2?"#e74c3c":v===3?"#C0A258":"#304E38";
+const avg=(arr,k)=>arr.length?(arr.reduce((s,d)=>s+d[k],0)/arr.length).toFixed(1):"—";
+const sortEntries=arr=>arr.slice().sort((a,b)=>{
+  const p=s=>s.split("/").reverse().join("-");
+  return p(a.date).localeCompare(p(b.date))||a.time.localeCompare(b.time);
+});
 
-function render(){ document.getElementById("app").innerHTML = html(); bind(); }
+function render(){ document.getElementById("app").innerHTML=html(); bind(); if(view==="long"&&selAtleta) drawChart(); }
 
 function html(){
   if(view==="senha") return htmlSenha();
@@ -180,30 +147,25 @@ function html(){
   if(view==="ok")    return htmlOk();
   if(view==="dash")  return htmlDash();
   if(view==="long")  return htmlLong();
+  return "";
 }
 
 function htmlSenha(){
   return `<div class="senha-box">
     <h2>Painel de Resultados</h2>
     <p>Digite a senha para acessar</p>
-    <input type="password" id="inp-senha" placeholder="Senha..." />
+    <input type="password" id="inp-senha" placeholder="Senha..."/>
     ${senhaErr?`<p class="err">${senhaErr}</p>`:""}
     <button class="btn-p" id="btn-entrar">Entrar</button>
-    <br><br>
-    <button class="btn-s" id="btn-back">← Voltar</button>
+    <br><br><button class="btn-s" id="btn-back">← Voltar</button>
   </div>`;
 }
 
 function htmlHome(){
   return `<div class="screen">
-    <div class="header">
-      <p class="sub">Psicologia do Esporte</p>
-      <h1>Check-in Pré-Jogo</h1>
-    </div>
+    <div class="header"><p class="sub">Psicologia do Esporte</p><h1>Check-in Pré-Jogo</h1></div>
     <p style="font-size:14px;color:#888;margin-bottom:1.5rem">Selecione sua categoria:</p>
-    ${["Sub-15","Sub-17","Sub-20"].map(c=>`
-      <button class="cat-btn" data-cat="${c}"><span>${c}</span><span style="color:#8CA591">→</span></button>
-    `).join("")}
+    ${["Sub-15","Sub-17","Sub-20"].map(c=>`<button class="cat-btn" data-cat="${c}"><span>${c}</span><span style="color:#8CA591">→</span></button>`).join("")}
     <div style="border-top:1px solid var(--cr2);padding-top:1.5rem;margin-top:1rem;text-align:center">
       <button class="btn-p" id="btn-dash" style="max-width:280px">Painel de resultados</button>
     </div>
@@ -211,23 +173,18 @@ function htmlHome(){
 }
 
 function htmlForm(){
-  const qs = QS[cat];
-  return `
-  <button class="back" id="btn-back">← Voltar</button>
+  return `<button class="back" id="btn-back">← Voltar</button>
   <div class="screen">
     <div class="header"><p class="sub">Check-in Pré-Jogo</p><h1>${cat}</h1></div>
     <div style="margin-bottom:1.25rem">
       <label class="fl">Seu nome completo</label>
       <input type="text" id="inp-nm" value="${nm}" placeholder="Digite seu nome..."/>
     </div>
-    ${qs.map((q,i)=>`
-      <div class="qcard">
-        <p class="qtext">${i+1}. ${q.text}</p>
-        <div class="srow">
-          ${[1,2,3,4,5].map(n=>`<button class="sbtn ${sc[q.id]===n?"on":""}" data-q="${q.id}" data-v="${n}">${n}</button>`).join("")}
-        </div>
-        <div class="slabs"><span>${q.min}</span><span>${q.max}</span></div>
-      </div>`).join("")}
+    ${QS[cat].map((q,i)=>`<div class="qcard">
+      <p class="qtext">${i+1}. ${q.text}</p>
+      <div class="srow">${[1,2,3,4,5].map(n=>`<button class="sbtn ${sc[q.id]===n?"on":""}" data-q="${q.id}" data-v="${n}">${n}</button>`).join("")}</div>
+      <div class="slabs"><span>${q.min}</span><span>${q.max}</span></div>
+    </div>`).join("")}
     <div class="qcard">
       <p class="qtext">${OBS[cat]} <span style="font-weight:400;color:#999">(opcional)</span></p>
       <textarea id="inp-obs" rows="3" placeholder="Escreva aqui se quiser...">${obs}</textarea>
@@ -247,242 +204,177 @@ function htmlOk(){
 }
 
 function htmlDash(){
-  const fil = cf==="Todas"?entries:entries.filter(d=>d.cat===cf);
-  const alerts = fil.filter(d=>d.q2<=2||d.q3<=2);
-  const grp = {};
+  const fil=cf==="Todas"?entries:entries.filter(d=>d.cat===cf);
+  const alerts=fil.filter(d=>d.q2<=2||d.q3<=2);
+  const grp={};
   fil.forEach(d=>{ if(!grp[d.date]) grp[d.date]=[]; grp[d.date].push(d); });
-  const dates = Object.keys(grp).sort((a,b)=>b.split("/").reverse().join("-").localeCompare(a.split("/").reverse().join("-")));
+  const dates=Object.keys(grp).sort((a,b)=>b.split("/").reverse().join("-").localeCompare(a.split("/").reverse().join("-")));
 
-  return `
-  <button class="back" id="btn-back">← Voltar</button>
+  return `<button class="back" id="btn-back">← Voltar</button>
   <div class="screen">
     <div class="dh">
       <div>
         <p style="font-size:11px;color:var(--sg);font-weight:500;letter-spacing:1px;text-transform:uppercase;margin:0">Painel</p>
         <p style="font-size:20px;font-weight:500;color:var(--vd);margin:0">Check-in Pré-Jogo</p>
       </div>
-      <div style="display:flex;gap:8px">
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="btn-s" id="btn-long">📈 Evolução</button>
         <button class="btn-s" id="btn-export">⬇ Excel</button>
         <button class="btn-danger" id="btn-clear">Limpar</button>
       </div>
     </div>
-
     <div class="frow">
       ${["Todas","Sub-15","Sub-17","Sub-20"].map(c=>`<button class="fbtn ${cf===c?"on":""}" data-cat="${c}">${c}</button>`).join("")}
     </div>
-
     <div class="mgrid">
       <div class="mcard"><p class="ml">Respostas</p><p class="mv">${fil.length}</p></div>
       <div class="mcard"><p class="ml">Média preparo</p><p class="mv">${avg(fil,"q1")}</p></div>
       <div class="mcard"><p class="ml">Média emocional</p><p class="mv">${avg(fil,"q2")}</p></div>
       <div class="mcard ${alerts.length?"alerta":""}"><p class="ml">Alertas</p><p class="mv">${alerts.length}</p></div>
     </div>
-
     ${alerts.length?`<div class="abox"><p class="at">⚠ Atenção individual recomendada</p>
       ${alerts.map(a=>`<p>${a.name} (${a.cat}) — emocional: ${a.q2} · foco: ${a.q3}${a.obs?` · <em>"${a.obs}"</em>`:""}</p>`).join("")}
     </div>`:""}
-
     ${!loaded?`<p class="loading">Carregando...</p>`:
       fil.length===0?`<div class="empty">Nenhuma resposta ainda.<br>Compartilhe o link com os atletas.</div>`:
-      dates.map(date=>`
-        <p class="dlabel">${date}</p>
-        ${grp[date].map(d=>`
-          <div class="acard" data-key="${d._k}">
-            <div class="arow">
-              <div style="display:flex;align-items:center;gap:10px">
-                <div class="av"><span>${ini(d.name)}</span></div>
-                <div><p class="aname">${d.name}</p><p class="asub">${d.cat} · ${d.time}</p></div>
-              </div>
-              <div class="pills">
-                <span class="${pc(d.q1)}">${d.q1}</span>
-                <span class="${pc(d.q2)}">${d.q2}</span>
-                <span class="${pc(d.q3)}">${d.q3}</span>
-                <span class="${pc(d.q4)}">${d.q4}</span>
-                <span style="font-size:12px;color:#bbb;margin-left:4px">${exp===d._k?"▲":"▼"}</span>
-              </div>
+      dates.map(date=>`<p class="dlabel">${date}</p>
+        ${grp[date].map(d=>`<div class="acard" data-key="${d._k}">
+          <div class="arow">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="av"><span>${ini(d.name)}</span></div>
+              <div><p class="aname">${d.name}</p><p class="asub">${d.cat} · ${d.time}</p></div>
             </div>
-            ${exp===d._k?`<div class="detail">
-              ${[["Preparo","q1"],["Estado emocional","q2"],["Foco","q3"],["Confiança","q4"]].map(([l,k])=>`
-                <div class="brow">
-                  <span class="blabel">${l}</span>
-                  <div class="btrack"><div class="bfill" style="width:${d[k]/5*100}%;background:${bc(d[k])}"></div></div>
-                  <span class="bval">${d[k]}</span>
-                </div>`).join("")}
-              ${d.obs?`<div class="obsbox">💬 ${d.obs}</div>`:""}
-            </div>`:""}
-          </div>`).join("")}
-      `).join("")
+            <div class="pills">
+              <span class="${pc(d.q1)}">${d.q1}</span><span class="${pc(d.q2)}">${d.q2}</span>
+              <span class="${pc(d.q3)}">${d.q3}</span><span class="${pc(d.q4)}">${d.q4}</span>
+              <span style="font-size:12px;color:#bbb;margin-left:4px">${exp===d._k?"▲":"▼"}</span>
+            </div>
+          </div>
+          ${exp===d._k?`<div class="detail">
+            ${[["Preparo","q1"],["Estado emocional","q2"],["Foco","q3"],["Confiança","q4"]].map(([l,k])=>`
+              <div class="brow"><span class="blabel">${l}</span>
+                <div class="btrack"><div class="bfill" style="width:${d[k]/5*100}%;background:${bc(d[k])}"></div></div>
+                <span class="bval">${d[k]}</span></div>`).join("")}
+            ${d.obs?`<div class="obsbox">💬 ${d.obs}</div>`:""}
+          </div>`:""}
+        </div>`).join("")}`).join("")
     }
   </div>`;
 }
 
 function htmlLong(){
-  const nomes = [...new Set(entries.map(e=>e.name))].sort();
-  const atletaEntries = selAtleta ? entries.filter(e=>e.name===selAtleta).sort((a,b)=>{
-    const p=s=>s.split("/").reverse().join("-");
-    return p(a.date).localeCompare(p(b.date)) || a.time.localeCompare(b.time);
-  }) : [];
-
-  return `
-  <button class="back" id="btn-back">← Voltar</button>
+  const nomes=[...new Set(entries.map(e=>e.name))].sort();
+  const atletaData=selAtleta?sortEntries(entries.filter(e=>e.name===selAtleta)):[];
+  return `<button class="back" id="btn-back">← Voltar</button>
   <div class="screen">
     <div class="dh">
       <div>
-        <p style="font-size:11px;color:var(--sg);font-weight:500;letter-spacing:1px;text-transform:uppercase;margin:0">Evolução por Atleta</p>
-        <p style="font-size:20px;font-weight:500;color:var(--vd);margin:0">Análise Longitudinal</p>
+        <p style="font-size:11px;color:var(--sg);font-weight:500;letter-spacing:1px;text-transform:uppercase;margin:0">Análise Longitudinal</p>
+        <p style="font-size:20px;font-weight:500;color:var(--vd);margin:0">Evolução por Atleta</p>
       </div>
     </div>
-
-    <select class="sel-atleta" id="sel-atleta">
+    <select id="sel-atleta">
       <option value="">Selecione um atleta...</option>
       ${nomes.map(n=>`<option value="${n}" ${selAtleta===n?"selected":""}>${n}</option>`).join("")}
     </select>
-
-    ${selAtleta && atletaEntries.length === 0 ? `<div class="empty">Nenhuma resposta encontrada para este atleta.</div>` : ""}
-
-    ${selAtleta && atletaEntries.length > 0 ? `
+    ${selAtleta&&atletaData.length===0?`<div class="empty">Nenhuma resposta encontrada.</div>`:""}
+    ${selAtleta&&atletaData.length>0?`
       <div class="legend">
         <div class="legend-item"><div class="legend-dot" style="background:#304E38"></div>Preparo</div>
         <div class="legend-item"><div class="legend-dot" style="background:#C0A258"></div>Emocional</div>
         <div class="legend-item"><div class="legend-dot" style="background:#8CA591"></div>Foco</div>
         <div class="legend-item"><div class="legend-dot" style="background:#c0392b"></div>Confiança</div>
       </div>
-      <div class="chart-wrap">
-        <canvas id="myChart" height="220"></canvas>
-      </div>
-      <button class="btn-p" id="btn-export-atleta" style="margin-bottom:1rem">⬇ Exportar dados de ${selAtleta}</button>
-
-      <p style="font-size:12px;font-weight:500;color:var(--sg);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Histórico</p>
-      ${atletaEntries.map((d,i)=>`
-        <div class="acard" style="cursor:default">
-          <div class="arow">
-            <div>
-              <p class="aname">Jogo ${i+1} — ${d.date}</p>
-              <p class="asub">${d.cat} · ${d.time}</p>
-            </div>
-            <div class="pills">
-              <span class="${pc(d.q1)}">${d.q1}</span>
-              <span class="${pc(d.q2)}">${d.q2}</span>
-              <span class="${pc(d.q3)}">${d.q3}</span>
-              <span class="${pc(d.q4)}">${d.q4}</span>
-            </div>
+      <div class="chart-wrap"><canvas id="myChart" height="220"></canvas></div>
+      <button class="btn-p" id="btn-export-atleta" style="margin-bottom:1.25rem">⬇ Exportar dados de ${selAtleta}</button>
+      <p class="dlabel">Histórico</p>
+      ${atletaData.map((d,i)=>`<div class="acard" style="cursor:default">
+        <div class="arow">
+          <div><p class="aname">Jogo ${i+1} — ${d.date}</p><p class="asub">${d.cat} · ${d.time}</p></div>
+          <div class="pills">
+            <span class="${pc(d.q1)}">${d.q1}</span><span class="${pc(d.q2)}">${d.q2}</span>
+            <span class="${pc(d.q3)}">${d.q3}</span><span class="${pc(d.q4)}">${d.q4}</span>
           </div>
-          ${d.obs?`<div class="obsbox" style="margin-top:8px">💬 ${d.obs}</div>`:""}
-        </div>`).join("")}
-    ` : ""}
+        </div>
+        ${d.obs?`<div class="obsbox" style="margin-top:8px">💬 ${d.obs}</div>`:""}
+      </div>`).join("")}
+    `:""}
   </div>`;
 }
 
-function drawChart(data){
-  const canvas = document.getElementById("myChart");
-  if(!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const labels = data.map((_,i)=>`Jogo ${i+1}`);
-  const W = canvas.parentElement.clientWidth - 32;
-  canvas.width = W; canvas.height = 220;
+function drawChart(){
+  const data=sortEntries(entries.filter(e=>e.name===selAtleta));
+  const canvas=document.getElementById("myChart");
+  if(!canvas||!data.length) return;
+  const ctx=canvas.getContext("2d");
+  const W=canvas.parentElement.clientWidth-32;
+  canvas.width=W; canvas.height=220;
   ctx.clearRect(0,0,W,220);
-
   const pad={t:20,r:20,b:40,l:30};
   const cW=W-pad.l-pad.r, cH=220-pad.t-pad.b;
-
-  // grade
   ctx.strokeStyle="#EEE8DA"; ctx.lineWidth=1;
   for(let i=1;i<=5;i++){
     const y=pad.t+cH-(i-1)/4*cH;
     ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+cW,y); ctx.stroke();
     ctx.fillStyle="#999"; ctx.font="10px sans-serif"; ctx.fillText(i,4,y+4);
   }
-
-  // eixo x
-  const step = data.length>1?cW/(data.length-1):cW;
+  const step=data.length>1?cW/(data.length-1):0;
   data.forEach((_,i)=>{
-    const x=pad.l+(data.length>1?i*step:cW/2);
-    ctx.fillStyle="#999"; ctx.font="10px sans-serif";
-    ctx.fillText(`J${i+1}`,x-6,220-8);
+    const x=pad.l+i*step;
+    ctx.fillStyle="#999"; ctx.font="10px sans-serif"; ctx.fillText(`J${i+1}`,x-6,220-8);
   });
-
-  // linhas
-  const series=[
-    {key:"q1",color:"#304E38"},
-    {key:"q2",color:"#C0A258"},
-    {key:"q3",color:"#8CA591"},
-    {key:"q4",color:"#c0392b"},
-  ];
-  series.forEach(s=>{
+  [{key:"q1",color:"#304E38"},{key:"q2",color:"#C0A258"},{key:"q3",color:"#8CA591"},{key:"q4",color:"#c0392b"}]
+  .forEach(s=>{
     ctx.beginPath(); ctx.strokeStyle=s.color; ctx.lineWidth=2;
-    data.forEach((d,i)=>{
-      const x=pad.l+(data.length>1?i*step:cW/2);
-      const y=pad.t+cH-(d[s.key]-1)/4*cH;
-      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-    });
+    data.forEach((d,i)=>{ const x=pad.l+i*step, y=pad.t+cH-(d[s.key]-1)/4*cH; i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
     ctx.stroke();
-    data.forEach((d,i)=>{
-      const x=pad.l+(data.length>1?i*step:cW/2);
-      const y=pad.t+cH-(d[s.key]-1)/4*cH;
-      ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2);
-      ctx.fillStyle=s.color; ctx.fill();
-    });
+    data.forEach((d,i)=>{ const x=pad.l+i*step, y=pad.t+cH-(d[s.key]-1)/4*cH; ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2); ctx.fillStyle=s.color; ctx.fill(); });
   });
 }
 
-function exportExcel(data, nome){
-  const rows = [["Nome","Categoria","Data","Hora","Preparo","Emocional","Foco","Confiança","Observação"]];
+function exportCSV(data, nome){
+  const rows=[["Nome","Categoria","Data","Hora","Preparo","Emocional","Foco","Confiança","Observação"]];
   data.forEach(d=>rows.push([d.name,d.cat,d.date,d.time,d.q1,d.q2,d.q3,d.q4,d.obs||""]));
-  const csv = rows.map(r=>r.map(v=>`"${v}"`).join(",")).join("\n");
-  const blob = new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
+  const csv=rows.map(r=>r.map(v=>`"${v}"`).join(",")).join("\n");
+  const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
   a.href=url; a.download=`checkin_${(nome||"todos").replace(/ /g,"_")}.csv`;
   a.click(); URL.revokeObjectURL(url);
 }
 
-function htmlLong_afterRender(){
-  const atletaEntries = selAtleta ? entries.filter(e=>e.name===selAtleta).sort((a,b)=>{
-    const p=s=>s.split("/").reverse().join("-");
-    return p(a.date).localeCompare(p(b.date)) || a.time.localeCompare(b.time);
-  }) : [];
-  if(selAtleta && atletaEntries.length>0) drawChart(atletaEntries);
-}
-  // home
+function bind(){
   document.querySelectorAll(".cat-btn[data-cat]").forEach(b=>b.addEventListener("click",()=>{
     cat=b.dataset.cat; sc={q1:0,q2:0,q3:0,q4:0}; nm=""; obs=""; ferr=""; view="form"; render();
   }));
   document.getElementById("btn-dash")?.addEventListener("click",()=>{ senhaErr=""; view="senha"; render(); });
-
-  // senha
   document.getElementById("btn-entrar")?.addEventListener("click",()=>{
-    const v = document.getElementById("inp-senha")?.value||"";
-    if(v===SENHA){ view="dash"; render(); }
-    else{ senhaErr="Senha incorreta."; render(); }
+    const v=document.getElementById("inp-senha")?.value||"";
+    if(v===SENHA){ view="dash"; render(); } else { senhaErr="Senha incorreta."; render(); }
   });
   document.getElementById("inp-senha")?.addEventListener("keydown",e=>{ if(e.key==="Enter") document.getElementById("btn-entrar")?.click(); });
-
-  // form
-  document.getElementById("btn-back")?.addEventListener("click",()=>{ view="home"; render(); });
+  document.getElementById("btn-back")?.addEventListener("click",()=>{ view=view==="long"?"dash":"home"; render(); });
   document.getElementById("inp-nm")?.addEventListener("input",e=>nm=e.target.value);
   document.getElementById("inp-obs")?.addEventListener("input",e=>obs=e.target.value);
   document.querySelectorAll(".sbtn[data-q]").forEach(b=>b.addEventListener("click",()=>{ sc[b.dataset.q]=parseInt(b.dataset.v); render(); }));
   document.getElementById("btn-send")?.addEventListener("click",async()=>{
-    nm = document.getElementById("inp-nm")?.value||nm;
-    obs = document.getElementById("inp-obs")?.value||obs;
+    nm=document.getElementById("inp-nm")?.value||nm;
+    obs=document.getElementById("inp-obs")?.value||obs;
     if(!nm.trim()){ ferr="Por favor, informe seu nome."; render(); return; }
     if(Object.values(sc).some(v=>v===0)){ ferr="Responda todas as perguntas antes de enviar."; render(); return; }
-    const entry={
-      cat, name:nm.trim(),
-      date:new Date().toLocaleDateString("pt-BR"),
-      time:new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),
-      q1:sc.q1, q2:sc.q2, q3:sc.q3, q4:sc.q4, obs:obs.trim()
-    };
-    await push(ref(db,"checkins"),entry);
+    await push(ref(db,"checkins"),{cat,name:nm.trim(),date:new Date().toLocaleDateString("pt-BR"),time:new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),q1:sc.q1,q2:sc.q2,q3:sc.q3,q4:sc.q4,obs:obs.trim()});
     okName=nm.trim(); view="ok"; render();
   });
-
-  // dash
   document.querySelectorAll(".fbtn[data-cat]").forEach(b=>b.addEventListener("click",()=>{ cf=b.dataset.cat; render(); }));
   document.querySelectorAll(".acard[data-key]").forEach(c=>c.addEventListener("click",()=>{ exp=exp===c.dataset.key?null:c.dataset.key; render(); }));
   document.getElementById("btn-clear")?.addEventListener("click",async()=>{
     if(confirm("Apagar todas as respostas? Esta ação não pode ser desfeita.")) await remove(ref(db,"checkins"));
+  });
+  document.getElementById("btn-long")?.addEventListener("click",()=>{ selAtleta=""; view="long"; render(); });
+  document.getElementById("btn-export")?.addEventListener("click",()=>exportCSV(entries,"todos"));
+  document.getElementById("sel-atleta")?.addEventListener("change",e=>{ selAtleta=e.target.value; render(); });
+  document.getElementById("btn-export-atleta")?.addEventListener("click",()=>{
+    exportCSV(sortEntries(entries.filter(e=>e.name===selAtleta)),selAtleta);
   });
 }
 
