@@ -1,405 +1,348 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Check-in Pré-Jogo</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #F8F4EC; min-height: 100vh; }
-  :root {
-    --creme: #F8F4EC; --creme2: #EEE8DA; --verde: #304E38;
-    --sage: #8CA591; --dourado: #C0A258;
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#F8F4EC;min-height:100vh}
+:root{--cr:#F8F4EC;--cr2:#EEE8DA;--vd:#304E38;--sg:#8CA591;--do:#C0A258}
 
-  /* ── layout ── */
-  .screen { max-width: 480px; margin: 0 auto; padding: 1.5rem 1rem; }
-  .card { background: #fff; border: 1px solid var(--creme2); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 10px; }
+.screen{max-width:480px;margin:0 auto;padding:1.5rem 1rem}
+.header{background:var(--vd);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.5rem}
+.header .sub{color:var(--do);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.header h1{color:var(--cr);font-size:22px;font-weight:500;margin-top:4px}
 
-  /* ── header ── */
-  .header { background: var(--verde); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
-  .header .eyebrow { color: var(--dourado); font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
-  .header h1 { color: var(--creme); font-size: 22px; font-weight: 500; margin-top: 4px; }
+.cat-btn{width:100%;padding:16px;background:#fff;border:1px solid var(--cr2);border-radius:12px;font-size:16px;font-weight:500;color:var(--vd);cursor:pointer;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cat-btn:active{background:var(--cr2)}
 
-  /* ── botões de categoria ── */
-  .cat-btn { width: 100%; padding: 16px; background: #fff; border: 1px solid var(--creme2);
-    border-radius: 12px; font-size: 16px; font-weight: 500; color: var(--verde);
-    cursor: pointer; display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 10px; }
-  .cat-btn:active { background: var(--creme2); }
+label.fl{font-size:13px;color:#666;display:block;margin-bottom:6px}
+input[type=text],textarea{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--cr2);font-size:15px;background:var(--cr);font-family:inherit}
+textarea{resize:none}
+input[type=password]{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--cr2);font-size:15px;background:var(--cr);font-family:inherit}
 
-  /* ── formulário ── */
-  label.field-label { font-size: 13px; color: #666; display: block; margin-bottom: 6px; }
-  input[type="text"], textarea {
-    width: 100%; padding: 10px 12px; border-radius: 8px;
-    border: 1px solid var(--creme2); font-size: 15px;
-    background: var(--creme); font-family: inherit; }
-  textarea { resize: none; }
+.qcard{background:var(--cr);border:1px solid var(--cr2);border-radius:10px;padding:1rem 1.25rem;margin-bottom:12px}
+.qtext{font-size:14px;font-weight:500;color:var(--vd);margin-bottom:12px}
+.srow{display:flex;gap:8px}
+.sbtn{flex:1;height:44px;border-radius:8px;font-size:16px;font-weight:500;border:1px solid var(--cr2);background:#fff;color:var(--vd);cursor:pointer}
+.sbtn.on{background:var(--vd);color:var(--cr);border-color:var(--vd)}
+.slabs{display:flex;justify-content:space-between;margin-top:6px}
+.slabs span{font-size:10px;color:#999;max-width:45%;line-height:1.3}
+.slabs span:last-child{text-align:right}
 
-  .q-card { background: var(--creme); border: 1px solid var(--creme2); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 12px; }
-  .q-text { font-size: 14px; font-weight: 500; color: var(--verde); margin-bottom: 12px; }
-  .scale-row { display: flex; gap: 8px; }
-  .scale-btn {
-    flex: 1; height: 44px; border-radius: 8px; font-size: 16px; font-weight: 500;
-    border: 1px solid var(--creme2); background: #fff; color: var(--verde); cursor: pointer; }
-  .scale-btn.sel { background: var(--verde); color: var(--creme); border-color: var(--verde); }
-  .scale-labels { display: flex; justify-content: space-between; margin-top: 6px; }
-  .scale-labels span { font-size: 10px; color: #999; max-width: 45%; line-height: 1.3; }
-  .scale-labels span:last-child { text-align: right; }
+.btn-p{width:100%;padding:14px;background:var(--vd);color:var(--cr);border:none;border-radius:10px;font-size:16px;font-weight:500;cursor:pointer;margin-top:4px}
+.btn-s{padding:7px 14px;border-radius:8px;border:1px solid var(--cr2);background:var(--cr);color:var(--vd);font-size:13px;cursor:pointer}
+.btn-danger{padding:7px 14px;border-radius:8px;border:1px solid #fcc;background:#fff5f5;color:#c0392b;font-size:13px;cursor:pointer}
 
-  /* ── botão enviar ── */
-  .btn-primary { width: 100%; padding: 14px; background: var(--verde); color: var(--creme);
-    border: none; border-radius: 10px; font-size: 16px; font-weight: 500; cursor: pointer; margin-top: 4px; }
-  .btn-secondary { padding: 7px 14px; border-radius: 8px; border: 1px solid var(--creme2);
-    background: var(--creme); color: var(--verde); font-size: 13px; cursor: pointer; }
-  .btn-danger { padding: 7px 14px; border-radius: 8px; border: 1px solid #fcc;
-    background: #fff5f5; color: #c0392b; font-size: 13px; cursor: pointer; }
+.ok-screen{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:2rem;text-align:center}
+.ok-circle{width:56px;height:56px;border-radius:50%;background:var(--vd);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--cr)}
 
-  /* ── sucesso ── */
-  .success-screen { min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 2rem; text-align: center; }
-  .check-circle { width: 56px; height: 56px; border-radius: 50%; background: var(--verde); display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--creme); }
+.mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:1.25rem}
+.mcard{background:var(--cr);border:1px solid var(--cr2);border-radius:10px;padding:.75rem 1rem}
+.mcard.alerta{background:#fff5f5;border-color:#fcc}
+.mcard .ml{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.mcard .mv{font-size:22px;font-weight:500;color:var(--vd)}
+.mcard.alerta .mv{color:#c0392b}
 
-  /* ── painel ── */
-  .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 1.25rem; }
-  .metric { background: var(--creme); border: 1px solid var(--creme2); border-radius: 10px; padding: .75rem 1rem; }
-  .metric.alert { background: #fff5f5; border-color: #fcc; }
-  .metric .mlabel { font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 4px; }
-  .metric .mval { font-size: 22px; font-weight: 500; color: var(--verde); }
-  .metric.alert .mval { color: #c0392b; }
+.abox{background:#fff5f5;border:1px solid #fcc;border-radius:10px;padding:.75rem 1.25rem;margin-bottom:1.25rem}
+.abox .at{font-size:13px;font-weight:500;color:#c0392b;margin-bottom:6px}
+.abox p{font-size:13px;color:#c0392b;margin:2px 0}
 
-  .alert-box { background: #fff5f5; border: 1px solid #fcc; border-radius: 10px; padding: .75rem 1.25rem; margin-bottom: 1.25rem; }
-  .alert-box .atitle { font-size: 13px; font-weight: 500; color: #c0392b; margin-bottom: 6px; }
-  .alert-box p { font-size: 13px; color: #c0392b; margin: 2px 0; }
+.dlabel{font-size:12px;font-weight:500;color:var(--sg);text-transform:uppercase;letter-spacing:1px;margin:0 0 8px}
+.acard{background:#fff;border:1px solid var(--cr2);border-radius:10px;padding:.75rem 1.25rem;margin-bottom:8px;cursor:pointer}
+.arow{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.av{width:32px;height:32px;border-radius:50%;background:var(--vd);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.av span{color:var(--cr);font-size:12px;font-weight:500}
+.aname{font-weight:500;font-size:14px;color:var(--vd)}
+.asub{font-size:11px;color:#999}
+.pills{display:flex;gap:6px;align-items:center}
+.pill{display:inline-block;min-width:28px;text-align:center;padding:2px 8px;border-radius:20px;font-weight:500;font-size:13px}
+.pok{background:#27ae6022;color:#27ae60}
+.pmid{background:#C0A25822;color:#C0A258}
+.pbad{background:#e74c3c22;color:#e74c3c}
 
-  .date-label { font-size: 12px; font-weight: 500; color: var(--sage); text-transform: uppercase; letter-spacing: 1px; margin: 0 0 8px; }
-  .athlete-card { background: #fff; border: 1px solid var(--creme2); border-radius: 10px; padding: .75rem 1.25rem; margin-bottom: 8px; cursor: pointer; }
-  .athlete-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
-  .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--verde); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .avatar span { color: var(--creme); font-size: 12px; font-weight: 500; }
-  .athlete-name { font-weight: 500; font-size: 14px; color: var(--verde); }
-  .athlete-sub { font-size: 11px; color: #999; }
-  .pills { display: flex; gap: 6px; align-items: center; }
-  .pill { display: inline-block; min-width: 28px; text-align: center; padding: 2px 8px; border-radius: 20px; font-weight: 500; font-size: 13px; }
-  .pill-ok { background: #27ae6022; color: #27ae60; }
-  .pill-mid { background: #C0A25822; color: #C0A258; }
-  .pill-bad { background: #e74c3c22; color: #e74c3c; }
-  .expand-icon { font-size: 12px; color: #bbb; margin-left: 4px; }
+.detail{margin-top:12px;padding-top:12px;border-top:1px solid var(--cr2)}
+.brow{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.blabel{font-size:12px;color:#999;width:130px;flex-shrink:0}
+.btrack{flex:1;height:6px;background:var(--cr2);border-radius:3px;overflow:hidden}
+.bfill{height:100%;border-radius:3px}
+.bval{font-size:13px;font-weight:500;color:var(--vd);width:16px}
+.obsbox{margin-top:8px;background:var(--cr);border-radius:8px;padding:8px 10px;font-size:12px;color:#666}
 
-  .detail { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--creme2); }
-  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-  .bar-label { font-size: 12px; color: #999; width: 130px; flex-shrink: 0; }
-  .bar-track { flex: 1; height: 6px; background: var(--creme2); border-radius: 3px; overflow: hidden; }
-  .bar-fill { height: 100%; border-radius: 3px; }
-  .bar-val { font-size: 13px; font-weight: 500; color: var(--verde); width: 16px; }
-  .obs-box { margin-top: 8px; background: var(--creme); border-radius: 8px; padding: 8px 10px; font-size: 12px; color: #666; }
+.frow{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
+.fbtn{padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;border:1px solid var(--cr2);background:var(--cr);color:var(--vd)}
+.fbtn.on{background:var(--vd);color:var(--cr);border-color:var(--vd);font-weight:500}
 
-  .filter-row { display: flex; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
-  .filter-btn { padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; border: 1px solid var(--creme2); background: var(--creme); color: var(--verde); }
-  .filter-btn.active { background: var(--verde); color: var(--creme); border-color: var(--verde); font-weight: 500; }
+.back{background:none;border:none;color:var(--sg);font-size:13px;cursor:pointer;margin:1rem 0 0 1rem;display:block}
+.empty{text-align:center;padding:3rem 0;color:#bbb;font-size:14px;line-height:1.8}
+.err{color:#c0392b;font-size:13px;margin-bottom:8px}
+.loading{text-align:center;padding:2rem;color:#999;font-size:14px}
+.dh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px}
 
-  .back-btn { background: none; border: none; color: var(--sage); font-size: 13px; cursor: pointer; margin: 1rem 0 0 1rem; display: block; }
-  .empty { text-align: center; padding: 3rem 0; color: #bbb; font-size: 14px; line-height: 1.8; }
-  .error { color: #c0392b; font-size: 13px; margin-bottom: 8px; }
-  .loading { text-align: center; padding: 2rem; color: #999; font-size: 14px; }
-  .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 8px; }
-  .dash-actions { display: flex; gap: 8px; }
+/* senha */
+.senha-box{max-width:360px;margin:4rem auto;padding:2rem 1.5rem;background:#fff;border:1px solid var(--cr2);border-radius:16px;text-align:center}
+.senha-box h2{color:var(--vd);font-size:20px;font-weight:500;margin-bottom:6px}
+.senha-box p{color:#999;font-size:13px;margin-bottom:1.5rem}
+.senha-box input{margin-bottom:12px}
 </style>
 </head>
 <body>
-
 <div id="app"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBnDWZGibFps54OpFKHdq1VYZOFj6qJGqY",
-  authDomain: "checkin---pre-jogo.firebaseapp.com",
-  databaseURL: "https://checkin---pre-jogo-default-rtdb.firebaseio.com",
-  projectId: "checkin---pre-jogo",
-  storageBucket: "checkin---pre-jogo.firebasestorage.app",
-  messagingSenderId: "850423983845",
-  appId: "1:850423983845:web:0613938dc4e5fb2973ae0c"
+const cfg = {
+  apiKey:"AIzaSyBnDWZGibFps54OpFKHdq1VYZOFj6qJGqY",
+  authDomain:"checkin---pre-jogo.firebaseapp.com",
+  databaseURL:"https://checkin---pre-jogo-default-rtdb.firebaseio.com",
+  projectId:"checkin---pre-jogo",
+  storageBucket:"checkin---pre-jogo.firebasestorage.app",
+  messagingSenderId:"850423983845",
+  appId:"1:850423983845:web:0613938dc4e5fb2973ae0c"
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-const db = getDatabase(firebaseApp);
+// ⬇️ TROQUE AQUI A SUA SENHA
+const SENHA = "eryca2025";
 
-const QUESTIONS = {
-  "Sub-15": [
-    { id:"q1", text:"O quanto você se sente pronto para jogar amanhã?", min:"Ainda não me sinto pronto", max:"Me sinto muito pronto" },
-    { id:"q2", text:"Como você está se sentindo hoje?", min:"Muito agitado ou nervoso", max:"Tranquilo e no meu ritmo" },
-    { id:"q3", text:"Você consegue manter o foco quando o jogo fica difícil?", min:"Tenho dificuldade", max:"Consigo me manter focado" },
-    { id:"q4", text:"Se precisar tomar uma decisão importante no jogo, como está sua confiança?", min:"Pouca confiança", max:"Muita confiança" },
+const fb = initializeApp(cfg);
+const db = getDatabase(fb);
+
+const QS = {
+  "Sub-15":[
+    {id:"q1",text:"O quanto você se sente pronto para jogar amanhã?",min:"Ainda não me sinto pronto",max:"Me sinto muito pronto"},
+    {id:"q2",text:"Como você está se sentindo hoje?",min:"Muito agitado ou nervoso",max:"Tranquilo e no meu ritmo"},
+    {id:"q3",text:"Você consegue manter o foco quando o jogo fica difícil?",min:"Tenho dificuldade",max:"Consigo me manter focado"},
+    {id:"q4",text:"Se precisar tomar uma decisão importante no jogo, como está sua confiança?",min:"Pouca confiança",max:"Muita confiança"},
   ],
-  "Sub-17": [
-    { id:"q1", text:"O quanto você se sente preparado para o jogo de amanhã?", min:"Nada preparado", max:"Totalmente preparado" },
-    { id:"q2", text:"Como está seu estado emocional agora?", min:"Muito ansioso ou agitado", max:"Calmo e equilibrado" },
-    { id:"q3", text:"Como está seu foco para o jogo?", min:"Com a cabeça dispersa", max:"Totalmente focado" },
-    { id:"q4", text:"Minha confiança para tomar decisões importantes no jogo é:", min:"Baixa", max:"Alta" },
+  "Sub-17":[
+    {id:"q1",text:"O quanto você se sente preparado para o jogo de amanhã?",min:"Nada preparado",max:"Totalmente preparado"},
+    {id:"q2",text:"Como está seu estado emocional agora?",min:"Muito ansioso ou agitado",max:"Calmo e equilibrado"},
+    {id:"q3",text:"Como está seu foco para o jogo?",min:"Com a cabeça dispersa",max:"Totalmente focado"},
+    {id:"q4",text:"Minha confiança para tomar decisões importantes no jogo é:",min:"Baixa",max:"Alta"},
   ],
-  "Sub-20": [
-    { id:"q1", text:"O quanto você se sente preparado para o jogo de amanhã?", min:"Nada preparado", max:"Totalmente preparado" },
-    { id:"q2", text:"Como você avalia seu estado emocional neste momento?", min:"Muito ansioso ou fora do equilíbrio", max:"Calmo, estável e no controle" },
-    { id:"q3", text:"Como está seu nível de foco e concentração para o jogo?", min:"Cabeça dispersa", max:"Totalmente concentrado" },
-    { id:"q4", text:"Minha confiança para executar minhas funções e tomar decisões sob pressão é:", min:"Baixa", max:"Alta" },
+  "Sub-20":[
+    {id:"q1",text:"O quanto você se sente preparado para o jogo de amanhã?",min:"Nada preparado",max:"Totalmente preparado"},
+    {id:"q2",text:"Como você avalia seu estado emocional neste momento?",min:"Muito ansioso ou fora do equilíbrio",max:"Calmo, estável e no controle"},
+    {id:"q3",text:"Como está seu nível de foco e concentração para o jogo?",min:"Cabeça dispersa",max:"Totalmente concentrado"},
+    {id:"q4",text:"Minha confiança para executar minhas funções e tomar decisões sob pressão é:",min:"Baixa",max:"Alta"},
   ],
 };
 
-const OBS_LABEL = {
-  "Sub-15": "Tem algo que está te deixando diferente hoje?",
-  "Sub-17": "Tem alguma coisa fora do futebol que pode te afetar hoje?",
-  "Sub-20": "Há algum fator que pode impactar sua performance hoje?",
+const OBS = {
+  "Sub-15":"Tem algo que está te deixando diferente hoje?",
+  "Sub-17":"Tem alguma coisa fora do futebol que pode te afetar hoje?",
+  "Sub-20":"Há algum fator que pode impactar sua performance hoje?",
 };
 
-// ── state ────────────────────────────────────────────────────
-let view = "home"; // home | form | success | dashboard
-let formCat = null;
-let scores = { q1:0, q2:0, q3:0, q4:0 };
-let nameVal = "";
-let obsVal = "";
-let formError = "";
-let successName = "";
-let allEntries = [];
-let catFilter = "Todas";
-let expanded = null;
-let dbLoaded = false;
+// estado
+let view = "home"; // home | form | ok | dash | senha
+let cat = null;
+let sc = {q1:0,q2:0,q3:0,q4:0};
+let nm = "", obs = "", ferr = "", okName = "";
+let entries = [];
+let loaded = false;
+let cf = "Todas";
+let exp = null;
+let senhaErr = "";
 
-// ── firebase listener ────────────────────────────────────────
-onValue(ref(db, "checkins"), snap => {
-  allEntries = [];
-  if (snap.exists()) {
-    snap.forEach(child => allEntries.push({ _key: child.key, ...child.val() }));
-  }
-  dbLoaded = true;
-  if (view === "dashboard") render();
-}, { onlyOnce: false });
+// firebase listener em tempo real
+onValue(ref(db,"checkins"), snap => {
+  entries = [];
+  if(snap.exists()) snap.forEach(c => { const v=c.val(); if(v&&v.name) entries.push({_k:c.key,...v}); });
+  loaded = true;
+  render();
+});
 
-// ── helpers ──────────────────────────────────────────────────
-function initials(name) {
-  return name.trim().split(" ").map(w => w[0]).filter(Boolean).slice(0,2).join("").toUpperCase();
-}
-function pillClass(v) { return v <= 2 ? "pill pill-bad" : v === 3 ? "pill pill-mid" : "pill pill-ok"; }
-function barColor(v) { return v <= 2 ? "#e74c3c" : v === 3 ? "#C0A258" : "#304E38"; }
-function avg(arr, key) {
-  if (!arr.length) return "—";
-  return (arr.reduce((s,d) => s + d[key], 0) / arr.length).toFixed(1);
-}
+// helpers
+const ini = n => n.trim().split(" ").map(w=>w[0]).filter(Boolean).slice(0,2).join("").toUpperCase();
+const pc = v => v<=2?"pill pbad":v===3?"pill pmid":"pill pok";
+const bc = v => v<=2?"#e74c3c":v===3?"#C0A258":"#304E38";
+const avg = (arr,k) => arr.length?(arr.reduce((s,d)=>s+d[k],0)/arr.length).toFixed(1):"—";
 
-// ── render ───────────────────────────────────────────────────
-function render() {
-  document.getElementById("app").innerHTML = buildHTML();
-  attachEvents();
+function render(){ document.getElementById("app").innerHTML = html(); bind(); }
+
+function html(){
+  if(view==="senha") return htmlSenha();
+  if(view==="home")  return htmlHome();
+  if(view==="form")  return htmlForm();
+  if(view==="ok")    return htmlOk();
+  if(view==="dash")  return htmlDash();
 }
 
-function buildHTML() {
-  if (view === "home")      return buildHome();
-  if (view === "form")      return buildForm();
-  if (view === "success")   return buildSuccess();
-  if (view === "dashboard") return buildDashboard();
+function htmlSenha(){
+  return `<div class="senha-box">
+    <h2>Painel de Resultados</h2>
+    <p>Digite a senha para acessar</p>
+    <input type="password" id="inp-senha" placeholder="Senha..." />
+    ${senhaErr?`<p class="err">${senhaErr}</p>`:""}
+    <button class="btn-p" id="btn-entrar">Entrar</button>
+    <br><br>
+    <button class="btn-s" id="btn-back">← Voltar</button>
+  </div>`;
 }
 
-function buildHome() {
-  return `
-  <div class="screen">
+function htmlHome(){
+  return `<div class="screen">
     <div class="header">
-      <p class="eyebrow">Psicologia do Esporte</p>
+      <p class="sub">Psicologia do Esporte</p>
       <h1>Check-in Pré-Jogo</h1>
     </div>
     <p style="font-size:14px;color:#888;margin-bottom:1.5rem">Selecione sua categoria:</p>
-    ${["Sub-15","Sub-17","Sub-20"].map(c => `
-      <button class="cat-btn" data-cat="${c}">
-        <span>${c}</span><span style="color:#8CA591">→</span>
-      </button>`).join("")}
-    <div style="border-top:1px solid #EEE8DA;padding-top:1.5rem;margin-top:1rem;text-align:center">
-      <button class="btn-primary" id="btn-dash" style="max-width:280px">Painel de resultados</button>
+    ${["Sub-15","Sub-17","Sub-20"].map(c=>`
+      <button class="cat-btn" data-cat="${c}"><span>${c}</span><span style="color:#8CA591">→</span></button>
+    `).join("")}
+    <div style="border-top:1px solid var(--cr2);padding-top:1.5rem;margin-top:1rem;text-align:center">
+      <button class="btn-p" id="btn-dash" style="max-width:280px">Painel de resultados</button>
     </div>
   </div>`;
 }
 
-function buildForm() {
-  const qs = QUESTIONS[formCat];
+function htmlForm(){
+  const qs = QS[cat];
   return `
-  <button class="back-btn" id="btn-back">← Voltar</button>
+  <button class="back" id="btn-back">← Voltar</button>
   <div class="screen">
-    <div class="header">
-      <p class="eyebrow">Check-in Pré-Jogo</p>
-      <h1>${formCat}</h1>
-    </div>
+    <div class="header"><p class="sub">Check-in Pré-Jogo</p><h1>${cat}</h1></div>
     <div style="margin-bottom:1.25rem">
-      <label class="field-label">Seu nome completo</label>
-      <input type="text" id="inp-name" value="${nameVal}" placeholder="Digite seu nome..." />
+      <label class="fl">Seu nome completo</label>
+      <input type="text" id="inp-nm" value="${nm}" placeholder="Digite seu nome..."/>
     </div>
-    ${qs.map((q,i) => `
-      <div class="q-card">
-        <p class="q-text">${i+1}. ${q.text}</p>
-        <div class="scale-row">
-          ${[1,2,3,4,5].map(n => `
-            <button class="scale-btn ${scores[q.id]===n?"sel":""}" data-qid="${q.id}" data-val="${n}">${n}</button>
-          `).join("")}
+    ${qs.map((q,i)=>`
+      <div class="qcard">
+        <p class="qtext">${i+1}. ${q.text}</p>
+        <div class="srow">
+          ${[1,2,3,4,5].map(n=>`<button class="sbtn ${sc[q.id]===n?"on":""}" data-q="${q.id}" data-v="${n}">${n}</button>`).join("")}
         </div>
-        <div class="scale-labels">
-          <span>${q.min}</span><span>${q.max}</span>
-        </div>
+        <div class="slabs"><span>${q.min}</span><span>${q.max}</span></div>
       </div>`).join("")}
-    <div class="q-card">
-      <p class="q-text">${OBS_LABEL[formCat]} <span style="font-weight:400;color:#999">(opcional)</span></p>
-      <textarea id="inp-obs" rows="3" placeholder="Escreva aqui se quiser...">${obsVal}</textarea>
+    <div class="qcard">
+      <p class="qtext">${OBS[cat]} <span style="font-weight:400;color:#999">(opcional)</span></p>
+      <textarea id="inp-obs" rows="3" placeholder="Escreva aqui se quiser...">${obs}</textarea>
     </div>
-    ${formError ? `<p class="error">${formError}</p>` : ""}
-    <button class="btn-primary" id="btn-submit">Enviar check-in</button>
+    ${ferr?`<p class="err">${ferr}</p>`:""}
+    <button class="btn-p" id="btn-send">Enviar check-in</button>
   </div>`;
 }
 
-function buildSuccess() {
-  return `
-  <div class="success-screen">
-    <div class="check-circle">✓</div>
+function htmlOk(){
+  return `<div class="ok-screen">
+    <div class="ok-circle">✓</div>
     <p style="font-size:20px;font-weight:500;color:#304E38">Resposta enviada!</p>
-    <p style="font-size:14px;color:#666">Boa sorte no jogo, ${successName.split(" ")[0]}.</p>
-    <button class="btn-secondary" id="btn-back" style="margin-top:8px">Voltar ao início</button>
+    <p style="font-size:14px;color:#666">Boa sorte no jogo, ${okName.split(" ")[0]}.</p>
+    <button class="btn-s" id="btn-back" style="margin-top:8px">Voltar ao início</button>
   </div>`;
 }
 
-function buildDashboard() {
-  const cats = ["Todas","Sub-15","Sub-17","Sub-20"];
-  const filtered = catFilter === "Todas" ? allEntries : allEntries.filter(d => d.cat === catFilter);
-  const alerts = filtered.filter(d => d.q2 <= 2 || d.q3 <= 2);
-
-  // group by date
-  const grouped = {};
-  filtered.forEach(d => {
-    if (!grouped[d.date]) grouped[d.date] = [];
-    grouped[d.date].push(d);
-  });
-  const dates = Object.keys(grouped).sort((a,b) => {
-    const p = s => s.split("/").reverse().join("-");
-    return p(b).localeCompare(p(a));
-  });
+function htmlDash(){
+  const fil = cf==="Todas"?entries:entries.filter(d=>d.cat===cf);
+  const alerts = fil.filter(d=>d.q2<=2||d.q3<=2);
+  const grp = {};
+  fil.forEach(d=>{ if(!grp[d.date]) grp[d.date]=[]; grp[d.date].push(d); });
+  const dates = Object.keys(grp).sort((a,b)=>b.split("/").reverse().join("-").localeCompare(a.split("/").reverse().join("-")));
 
   return `
-  <button class="back-btn" id="btn-back">← Voltar</button>
+  <button class="back" id="btn-back">← Voltar</button>
   <div class="screen">
-    <div class="dash-header">
+    <div class="dh">
       <div>
-        <p style="font-size:11px;color:#8CA591;font-weight:500;letter-spacing:1px;text-transform:uppercase;margin:0">Painel</p>
-        <p style="font-size:20px;font-weight:500;color:#304E38;margin:0">Check-in Pré-Jogo</p>
+        <p style="font-size:11px;color:var(--sg);font-weight:500;letter-spacing:1px;text-transform:uppercase;margin:0">Painel</p>
+        <p style="font-size:20px;font-weight:500;color:var(--vd);margin:0">Check-in Pré-Jogo</p>
       </div>
-      <div class="dash-actions">
-        <button class="btn-danger" id="btn-clear">Limpar dados</button>
-      </div>
+      <button class="btn-danger" id="btn-clear">Limpar dados</button>
     </div>
 
-    <div class="filter-row">
-      ${cats.map(c => `<button class="filter-btn ${catFilter===c?"active":""}" data-cat="${c}">${c}</button>`).join("")}
+    <div class="frow">
+      ${["Todas","Sub-15","Sub-17","Sub-20"].map(c=>`<button class="fbtn ${cf===c?"on":""}" data-cat="${c}">${c}</button>`).join("")}
     </div>
 
-    <div class="metric-grid">
-      <div class="metric"><p class="mlabel">Respostas</p><p class="mval">${filtered.length}</p></div>
-      <div class="metric"><p class="mlabel">Média preparo</p><p class="mval">${avg(filtered,"q1")}</p></div>
-      <div class="metric"><p class="mlabel">Média emocional</p><p class="mval">${avg(filtered,"q2")}</p></div>
-      <div class="metric ${alerts.length>0?"alert":""}"><p class="mlabel">Alertas</p><p class="mval">${alerts.length}</p></div>
+    <div class="mgrid">
+      <div class="mcard"><p class="ml">Respostas</p><p class="mv">${fil.length}</p></div>
+      <div class="mcard"><p class="ml">Média preparo</p><p class="mv">${avg(fil,"q1")}</p></div>
+      <div class="mcard"><p class="ml">Média emocional</p><p class="mv">${avg(fil,"q2")}</p></div>
+      <div class="mcard ${alerts.length?"alerta":""}"><p class="ml">Alertas</p><p class="mv">${alerts.length}</p></div>
     </div>
 
-    ${alerts.length > 0 ? `
-    <div class="alert-box">
-      <p class="atitle">⚠ Atenção individual recomendada</p>
-      ${alerts.map(a => `<p>${a.name} (${a.cat}) — emocional: ${a.q2} · foco: ${a.q3}${a.obs ? ` · <em>"${a.obs}"</em>` : ""}</p>`).join("")}
-    </div>` : ""}
+    ${alerts.length?`<div class="abox"><p class="at">⚠ Atenção individual recomendada</p>
+      ${alerts.map(a=>`<p>${a.name} (${a.cat}) — emocional: ${a.q2} · foco: ${a.q3}${a.obs?` · <em>"${a.obs}"</em>`:""}</p>`).join("")}
+    </div>`:""}
 
-    ${!dbLoaded ? `<p class="loading">Carregando...</p>` :
-      filtered.length === 0 ? `<div class="empty">Nenhuma resposta ainda.<br>Compartilhe o link com os atletas.</div>` :
-      dates.map(date => `
-        <p class="date-label">${date}</p>
-        ${grouped[date].map(d => `
-          <div class="athlete-card" data-key="${d._key}">
-            <div class="athlete-row">
+    ${!loaded?`<p class="loading">Carregando...</p>`:
+      fil.length===0?`<div class="empty">Nenhuma resposta ainda.<br>Compartilhe o link com os atletas.</div>`:
+      dates.map(date=>`
+        <p class="dlabel">${date}</p>
+        ${grp[date].map(d=>`
+          <div class="acard" data-key="${d._k}">
+            <div class="arow">
               <div style="display:flex;align-items:center;gap:10px">
-                <div class="avatar"><span>${initials(d.name)}</span></div>
-                <div>
-                  <p class="athlete-name">${d.name}</p>
-                  <p class="athlete-sub">${d.cat} · ${d.time}</p>
-                </div>
+                <div class="av"><span>${ini(d.name)}</span></div>
+                <div><p class="aname">${d.name}</p><p class="asub">${d.cat} · ${d.time}</p></div>
               </div>
               <div class="pills">
-                <span class="${pillClass(d.q1)}">${d.q1}</span>
-                <span class="${pillClass(d.q2)}">${d.q2}</span>
-                <span class="${pillClass(d.q3)}">${d.q3}</span>
-                <span class="${pillClass(d.q4)}">${d.q4}</span>
-                <span class="expand-icon">${expanded===d._key?"▲":"▼"}</span>
+                <span class="${pc(d.q1)}">${d.q1}</span>
+                <span class="${pc(d.q2)}">${d.q2}</span>
+                <span class="${pc(d.q3)}">${d.q3}</span>
+                <span class="${pc(d.q4)}">${d.q4}</span>
+                <span style="font-size:12px;color:#bbb;margin-left:4px">${exp===d._k?"▲":"▼"}</span>
               </div>
             </div>
-            ${expanded===d._key ? `
-            <div class="detail">
-              ${[["Preparo","q1"],["Estado emocional","q2"],["Foco","q3"],["Confiança","q4"]].map(([lbl,k]) => `
-                <div class="bar-row">
-                  <span class="bar-label">${lbl}</span>
-                  <div class="bar-track"><div class="bar-fill" style="width:${d[k]/5*100}%;background:${barColor(d[k])}"></div></div>
-                  <span class="bar-val">${d[k]}</span>
+            ${exp===d._k?`<div class="detail">
+              ${[["Preparo","q1"],["Estado emocional","q2"],["Foco","q3"],["Confiança","q4"]].map(([l,k])=>`
+                <div class="brow">
+                  <span class="blabel">${l}</span>
+                  <div class="btrack"><div class="bfill" style="width:${d[k]/5*100}%;background:${bc(d[k])}"></div></div>
+                  <span class="bval">${d[k]}</span>
                 </div>`).join("")}
-              ${d.obs ? `<div class="obs-box">💬 ${d.obs}</div>` : ""}
-            </div>` : ""}
+              ${d.obs?`<div class="obsbox">💬 ${d.obs}</div>`:""}
+            </div>`:""}
           </div>`).join("")}
       `).join("")
     }
   </div>`;
 }
 
-// ── events ───────────────────────────────────────────────────
-function attachEvents() {
+function bind(){
   // home
-  document.querySelectorAll(".cat-btn[data-cat]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      formCat = btn.dataset.cat;
-      scores = { q1:0, q2:0, q3:0, q4:0 };
-      nameVal = ""; obsVal = ""; formError = "";
-      view = "form"; render();
-    });
+  document.querySelectorAll(".cat-btn[data-cat]").forEach(b=>b.addEventListener("click",()=>{
+    cat=b.dataset.cat; sc={q1:0,q2:0,q3:0,q4:0}; nm=""; obs=""; ferr=""; view="form"; render();
+  }));
+  document.getElementById("btn-dash")?.addEventListener("click",()=>{ senhaErr=""; view="senha"; render(); });
+
+  // senha
+  document.getElementById("btn-entrar")?.addEventListener("click",()=>{
+    const v = document.getElementById("inp-senha")?.value||"";
+    if(v===SENHA){ view="dash"; render(); }
+    else{ senhaErr="Senha incorreta."; render(); }
   });
-  document.getElementById("btn-dash")?.addEventListener("click", () => { view="dashboard"; render(); });
+  document.getElementById("inp-senha")?.addEventListener("keydown",e=>{ if(e.key==="Enter") document.getElementById("btn-entrar")?.click(); });
 
   // form
-  document.getElementById("btn-back")?.addEventListener("click", () => { view="home"; render(); });
-  document.getElementById("inp-name")?.addEventListener("input", e => { nameVal = e.target.value; });
-  document.getElementById("inp-obs")?.addEventListener("input", e => { obsVal = e.target.value; });
-  document.querySelectorAll(".scale-btn[data-qid]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      scores[btn.dataset.qid] = parseInt(btn.dataset.val);
-      render();
-    });
-  });
-  document.getElementById("btn-submit")?.addEventListener("click", async () => {
-    nameVal = document.getElementById("inp-name")?.value || nameVal;
-    obsVal  = document.getElementById("inp-obs")?.value  || obsVal;
-    if (!nameVal.trim())                             { formError = "Por favor, informe seu nome."; render(); return; }
-    if (Object.values(scores).some(v => v === 0))   { formError = "Responda todas as perguntas antes de enviar."; render(); return; }
-    const entry = {
-      cat: formCat, name: nameVal.trim(),
-      date: new Date().toLocaleDateString("pt-BR"),
-      time: new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),
-      q1: scores.q1, q2: scores.q2, q3: scores.q3, q4: scores.q4,
-      obs: obsVal.trim(),
+  document.getElementById("btn-back")?.addEventListener("click",()=>{ view="home"; render(); });
+  document.getElementById("inp-nm")?.addEventListener("input",e=>nm=e.target.value);
+  document.getElementById("inp-obs")?.addEventListener("input",e=>obs=e.target.value);
+  document.querySelectorAll(".sbtn[data-q]").forEach(b=>b.addEventListener("click",()=>{ sc[b.dataset.q]=parseInt(b.dataset.v); render(); }));
+  document.getElementById("btn-send")?.addEventListener("click",async()=>{
+    nm = document.getElementById("inp-nm")?.value||nm;
+    obs = document.getElementById("inp-obs")?.value||obs;
+    if(!nm.trim()){ ferr="Por favor, informe seu nome."; render(); return; }
+    if(Object.values(sc).some(v=>v===0)){ ferr="Responda todas as perguntas antes de enviar."; render(); return; }
+    const entry={
+      cat, name:nm.trim(),
+      date:new Date().toLocaleDateString("pt-BR"),
+      time:new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),
+      q1:sc.q1, q2:sc.q2, q3:sc.q3, q4:sc.q4, obs:obs.trim()
     };
-    await push(ref(db, "checkins"), entry);
-    successName = nameVal.trim();
-    view = "success"; render();
+    await push(ref(db,"checkins"),entry);
+    okName=nm.trim(); view="ok"; render();
   });
 
-  // dashboard
-  document.querySelectorAll(".filter-btn[data-cat]").forEach(btn => {
-    btn.addEventListener("click", () => { catFilter = btn.dataset.cat; render(); });
-  });
-  document.querySelectorAll(".athlete-card[data-key]").forEach(card => {
-    card.addEventListener("click", () => {
-      expanded = expanded === card.dataset.key ? null : card.dataset.key;
-      render();
-    });
-  });
-  document.getElementById("btn-clear")?.addEventListener("click", async () => {
-    if (confirm("Apagar todas as respostas? Esta ação não pode ser desfeita.")) {
-      await remove(ref(db, "checkins"));
-    }
+  // dash
+  document.querySelectorAll(".fbtn[data-cat]").forEach(b=>b.addEventListener("click",()=>{ cf=b.dataset.cat; render(); }));
+  document.querySelectorAll(".acard[data-key]").forEach(c=>c.addEventListener("click",()=>{ exp=exp===c.dataset.key?null:c.dataset.key; render(); }));
+  document.getElementById("btn-clear")?.addEventListener("click",async()=>{
+    if(confirm("Apagar todas as respostas? Esta ação não pode ser desfeita.")) await remove(ref(db,"checkins"));
   });
 }
 
