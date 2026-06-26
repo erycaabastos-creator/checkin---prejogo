@@ -138,7 +138,7 @@ const sortEntries=arr=>arr.slice().sort((a,b)=>{
   return p(a.date).localeCompare(p(b.date))||a.time.localeCompare(b.time);
 });
 
-function render(){ document.getElementById("app").innerHTML=html(); bind(); if(view==="long"&&selAtleta) drawChart(); }
+function render(){ document.getElementById("app").innerHTML=html(); bind(); if(view==="long"&&selAtleta) setTimeout(drawChart, 50); }
 
 function html(){
   if(view==="senha") return htmlSenha();
